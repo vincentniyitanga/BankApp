@@ -35,12 +35,8 @@ In this project, you You need to implement the following items based on the give
 * Finish implementing the method `showAccountsButtonActionPerformed(java.awt.event.ActionEvent evt)` to display all bank accounts for a selected customer using ShowAccountsFrame, if a customer is not selected, or there is no customer in the application, display error message: "Select a customer or add a new customer to show accounts!"
 * Finish implementing the method `addCustomerToTable(Customer customer)` to show the customer details in the table `customerTable`.
 
-### Customer Class
-* Implement a class `Customer` to use `Person` as the Super class. 
-* In this class, there are two private member variable `phoneNumber` of String type, and a private member variable `bankAccounts` of `List<BankAccount>` type which stores all the bank accounts for this customer; 
-* Add a constructor `Customer(String name, String phoneNumber, List<BankAccount> bankAccounts)` to initialize the member variables; add another constructor to initialize `serviceFee` with a parameter of BigDecimal type; 
-* Add getters and setters for `bankAccounts` and `phoneNumber`; 
-* Add a public method `addBankAccount(BankAccount account)` to add the parameter `account` to the list of bank accounts for this customer.
+### Finish implementing AddAccountDialog Class
+* Finish implementing the method `addAccountOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to add a bank account to the customer. Students may use the method `addCustomerOKButtonActionPerformed(java.awt.event.ActionEvent evt)` defined in the `AddCustomerDialog` class as an example on how to implement this method.  
 
 ### CustomerRepository Class
 * Implement a `CustomerRepository` class to implement the `ICustomerRepository` interface; 

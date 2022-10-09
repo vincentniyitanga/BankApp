@@ -31,12 +31,9 @@ You are also give the following list of GUI programs:
 ## Your Tasks
 In this project, you You need to implement the following items based on the given starting code:
 
-### InvestmentAccount Class
-* Implement a class `InvestmentAccount` to use `BankAccount` as the Super class. 
-* In this class, add a private member variable `serviceFee` of `BigDecimal` type; 
-* Add a constructor to initialize `serviceFee` with a parameter of BigDecimal type; 
-* Add getter and setter for `serviceFee`; 
-* Add a public method `chargeServiceFee`, in this method, subtract `serviceFee` from `balance`, and update `balance`.
+### Finish implementing MainMenu Class
+* Finish implementing the method `showAccountsButtonActionPerformed(java.awt.event.ActionEvent evt)` to display all bank accounts for a selected customer using ShowAccountsFrame, if a customer is not selected, or there is no customer in the application, display error message: "Select a customer or add a new customer to show accounts!"
+* Finish implementing the method `addCustomerToTable(Customer customer)` to show the customer details in the table `customerTable`.
 
 ### Customer Class
 * Implement a class `Customer` to use `Person` as the Super class. 

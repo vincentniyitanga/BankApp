@@ -25,7 +25,6 @@ You are also give the following list of GUI programs:
 * `AddAccountDialog`, the GUI dialog to add a bank account to a selected customer;
 * `ShowAccountsFrame`, the GUI frame to show all the bank accounts for a selected customer;
 * `DepositDialog`, the GUI dialog to depoist a certain amount of money to a selected bank account;
-* `WithdrawDialog`, the GUI dialog to withdraw a certain amount of money from a selected bank account;
 * `TransferDialog`, the GUI dialog to transfer a certain amount of money from a selected bank account to anther bank account;
 
 ## Your Tasks
@@ -38,18 +37,10 @@ In this project, you You need to implement the following items based on the give
 ### Finish implementing AddAccountDialog Class
 * Finish implementing the method `addAccountOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to add a bank account to the customer. Students may use the method `addCustomerOKButtonActionPerformed(java.awt.event.ActionEvent evt)` defined in the `AddCustomerDialog` class as an example on how to implement this method.  
 
-### CustomerRepository Class
-* Implement a `CustomerRepository` class to implement the `ICustomerRepository` interface; 
-* In this class, implement a method `findCustomerByAccountNumber` which takes an accountNumber of int type as the parameter; in this method, first look for an `BankAccount` object using `bankAccountRepository` to match the parameter accountNumber; proper try/catch blocks should be used in case no such bank account can be found; then look for a customer who owns this bank account; if no such customer can be found, a `NoSuchCustomerException` object should be thrown; 
-* Implement a method `findCustomerByPhoneNumber(String phoneNumber)` to return a customer with the matching phone number; in this method if no such customer can be found, a `NoSuchCustomerException` object should be thrown.
+### Add WithdrawDialog Class
+* Implement a `WithdrawDialog`, the GUI dialog to withdraw a certain amount of money from a selected bank account; Students may use the `DepositDialog` class as an example on how to implement this dialog.
 
-### BankingService Class
-* Implement a `BankingService` class to implement the `IBankingService` interface; 
-* In this class, implement a method `openBankAccount(BankAccountType accountType, Customer customer)` to create a `BankAccount` object based on the type of the account, then add the account to the customer.
-* Implement a method `closeBankAccount(int accountNumber)` to remove a `BankAccount` object from a customer; in this method, first find the customer who owns the bank account based on the account number, then find the `BankAccount` object based on the account number, then remove it from the list of bank accounts for that customer. Proper try/catch block should be used if a customer cannot be found or if a bank account cannot be found.
-
-### TransferService Class
-* Implement a `TransferService` class to implement the `ITransfer` interface; 
-* In this class, implement a method `transfer(int from, int to, BigDecimal amount)` to transfer a certain amount of money from the bank account with the account number `from` to a bank account with the account number `to`.
+### Finish implementing TransferDialog Class
+* Finish implementing the method `transferOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to transfer a certain amount from one bank account to another. 
 
 Unit tests have been written to test your code. Once you commit and push your changes to GitHub, you will see whether or not your code succeeds the tests. You may stage, commit, and push the code to GitHub as many times as needed. To run tests on your local computer, run the command `mvn test` from intellij or command prompt.

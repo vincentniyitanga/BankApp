@@ -43,4 +43,3 @@ In this project, you You need to implement the following items based on the give
 ### Finish implementing TransferDialog Class
 * Finish implementing the method `transferOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to transfer a certain amount from one bank account to another. 
 
-Unit tests have been written to test your code. Once you commit and push your changes to GitHub, you will see whether or not your code succeeds the tests. You may stage, commit, and push the code to GitHub as many times as needed. To run tests on your local computer, run the command `mvn test` from intellij or command prompt.

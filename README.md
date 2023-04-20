@@ -43,3 +43,5 @@ In this project, you You need to implement the following items based on the give
 ### Finish implementing TransferDialog Class
 * Finish implementing the method `transferOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to transfer a certain amount from one bank account to another. 
 
+### Add Functionality to AddCustomerDialog Class
+* Implement the functionality that displays a warning message when a new customer is being created with a phone number that is already associated with an existing customer. 

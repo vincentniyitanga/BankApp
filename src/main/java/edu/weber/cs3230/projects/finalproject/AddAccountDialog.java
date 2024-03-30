@@ -5,7 +5,7 @@
 package edu.weber.cs3230.projects.finalproject;
 
 import java.math.BigDecimal;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -84,8 +84,29 @@ public class AddAccountDialog extends javax.swing.JDialog {
         // TODO: add a bank account to the customer
 
 
+
+
     }//GEN-LAST:event_addAccountOKButtonActionPerformed
 
+    public JButton getAddAccountCancelButton() {
+        return addAccountCancelButton;
+    }
+
+    public JTextField getInitBalanceTextField() {
+        return initBalanceTextField;
+    }
+
+    public JComboBox<String> getAccountTypeComboBox() {
+        return accountTypeComboBox;
+    }
+
+    public JButton getAddAccountOKButton() {
+        return addAccountOKButton;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> accountTypeComboBox;

@@ -7,8 +7,7 @@ package edu.weber.cs3230.projects.finalproject;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -122,78 +121,21 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         BigDecimal balance = BigDecimal.ZERO;
         StringBuilder warnings = new StringBuilder();
 
-        // verify first name field
-        if(firstNameTextField.getText().isEmpty())
-        {
-            warnings.append("First name must not be empty.\n");
-        }
-        else
-        {
-            firstName = firstNameTextField.getText();
-        }
+        // TODO: Finish implementing this method to checks the input fields for the first name, last name,
+        //  phone number, and initial balance. If any of these fields are empty or contain invalid data,
+        //  a message dialog is displayed to alert the user about the input issues. Also display a warning
+        //  message when a new customer is being created with a phone number that is already associated
+        //  with an existing customer. If there are no warnings, a new Customer object is created with the
+        //  provided first name, last name, and phone number. Then, based on the selected account type
+        //  from a combo box (accountTypeComboBox), a corresponding type of bank account (CheckingAccount,
+        //  SavingsAccount, or InvestmentAccount) is created and associated with the customer.
+        //  The initial balance is set for the account if provided. Finally, the newly created customer
+        //  is added to the customers list. After adding the customer, the TransferDialog is disposed,
+        //  indicating the completion of the operation.
 
-        // last name field, phone number
-        if(lastNameTextField.getText().isEmpty())
-        {
-            warnings.append("Last name must not be empty.\n");
-        }
-        else
-        {
-            lastName = lastNameTextField.getText();
-        }
-        
-        // phone number
-        if(!phoneNumberTextField.getText().matches("\\d{10}"))
-        {
-            warnings.append("Phone number must be 10 digits without dashes.\n");
-        }
-        else
-        {
-            phoneNumber = phoneNumberTextField.getText().replace("-", "");
-            
-        }
-        
-        // initial balance
-        if(!initBalanceTextField.getText().isEmpty())
-        {
-            try{
-                balance = new BigDecimal(initBalanceTextField.getText());
-            }
-            catch(NumberFormatException e)
-            {
-                warnings.append("Initial balance must be a number.");
-            }
-        }
-        
-        if (warnings.length() > 0) {
-            JOptionPane.showMessageDialog(this, warnings.toString(), "Input Warnings", JOptionPane.WARNING_MESSAGE);
-        } 
-        else 
-        {
-            Customer customer = new Customer(firstName, lastName, "", phoneNumber);
-            String accountType = accountTypeComboBox.getSelectedItem().toString();
-            BankAccount account = null;
-            switch(accountType)
-            {
-                case "Checking":
-                    account = new CheckingAccount();
-                    break;
-                case "Savings":
-                    account = new SavingsAccount();
-                    break;
-                case "Investment":
-                    account = new InvestmentAccount();
-                    break;
-            }
-            if(account != null)
-            {
-                account.setBalance(balance);
-                customer.getBankAccounts().add(account);
-            }
-            customers.add(customer);
-            newlyAddedCustomer = customer;
-            this.dispose();            
-        }
+
+
+
         
     }//GEN-LAST:event_addCustomerOKButtonActionPerformed
 
@@ -202,6 +144,37 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         return newlyAddedCustomer;
     }
 
+    public JButton getAddCustomerCancelButton() {
+        return addCustomerCancelButton;
+    }
+
+    public JButton getAddCustomerOKButton() {
+        return addCustomerOKButton;
+    }
+
+    public JTextField getFirstNameTextField() {
+        return firstNameTextField;
+    }
+
+    public JTextField getInitBalanceTextField() {
+        return initBalanceTextField;
+    }
+
+    public JTextField getLastNameTextField() {
+        return lastNameTextField;
+    }
+
+    public JTextField getPhoneNumberTextField() {
+        return phoneNumberTextField;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public JComboBox<String> getAccountTypeComboBox() {
+        return accountTypeComboBox;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> accountTypeComboBox;

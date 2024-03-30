@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -103,8 +103,36 @@ public class TransferDialog extends javax.swing.JDialog {
         // TODO: transfer a certain amount from one bank account to another
 
 
+
     }//GEN-LAST:event_transferOKButtonActionPerformed
 
+    public JTextField getToAccountTextField() {
+        return toAccountTextField;
+    }
+
+    public JTextField getTransferAmountTextField() {
+        return transferAmountTextField;
+    }
+
+    public JButton getTransferOKButton() {
+        return transferOKButton;
+    }
+
+    public JTextField getFromAccountTextField() {
+        return fromAccountTextField;
+    }
+
+    public JButton getTransferCancelButton() {
+        return transferCancelButton;
+    }
+
+    public void setBankAccountRepository(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
+    public void setAccount(BankAccount account) {
+        this.account = account;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fromAccountLabel;
@@ -120,4 +148,6 @@ public class TransferDialog extends javax.swing.JDialog {
     private BankAccount account;
     private List<Customer> customers;
     private BankAccountRepository bankAccountRepository;
+
+    private TransferService transferService;
 }

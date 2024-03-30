@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -233,6 +233,8 @@ public class MainMenu extends javax.swing.JFrame {
         //  or there is no customer in the application, display error message: "Select a customer or add a new customer to show accounts!"
 
 
+
+
     }//GEN-LAST:event_showAccountsButtonActionPerformed
 
     
@@ -257,16 +259,21 @@ public class MainMenu extends javax.swing.JFrame {
     }
     
     
-    private void addCustomerToTable(Customer customer)
+    public void addCustomerToTable(Customer customer)
     {
         // TODO: show the customer details to the table "customerTable"
 
+
     }
     
-    private void removeCustomerFromTable(int selectedRow)
+    public void removeCustomerFromTable(int selectedRow)
     {
         DefaultTableModel tableModel = (DefaultTableModel)customerTable.getModel();
         tableModel.removeRow(selectedRow);
+    }
+
+    public JTable getCustomerTable() {
+        return customerTable;
     }
     
     /**

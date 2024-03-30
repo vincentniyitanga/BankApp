@@ -40,8 +40,11 @@ In this project, you You need to implement the following items based on the give
 ### Finish implementing TransferDialog Class
 * Finish implementing the method `transferOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to transfer a certain amount from one bank account to another. 
 
-### Add Functionality to AddCustomerDialog Class
-* Implement the functionality that displays a warning message when a new customer is being created with a phone number that is already associated with an existing customer. 
+### Finish implementing AddCustomerDialog Class
+* Finish implementing the method `addCustomerOKButtonActionPerformed` to checks the input fields for the first name, last name, phone number, and initial balance. If any of these fields are empty or contain invalid data, a message dialog is displayed to alert the user about the input issues.
+* Also display a warning message when a new customer is being created with a phone number that is already associated with an existing customer.
+* If there are no warnings, a new Customer object is created with the provided first name, last name, and phone number. Then, based on the selected account type from a combo box (accountTypeComboBox), a corresponding type of bank account (CheckingAccount, SavingsAccount, or InvestmentAccount) is created and associated with the customer. The initial balance is set for the account if provided. Finally, the newly created customer is added to the customers list.
+* After adding the customer, the TransferDialog is disposed, indicating the completion of the operation.
 
 ## Testing
 Unit tests have been written to test your code. While crafting your solution, feel free to run tests at any point to verify the correctness of your code. To execute tests on your local machine, you can either right-click on the `src/test/java` package in the left pane and choose `Run All Tests`, or use the mvn test command from the IntelliJ Maven button on the right vertical bar, or open a command prompt or terminal, navigate to the project folder, and execute the command `mvn test`. You can run tests for a particular program by right-clicking on the corresponding test code and choosing to run the test. As an example, within IntelliJ, you can right-click on the HelloWorldTest file under the test directory and then select Run HelloWorldTest.

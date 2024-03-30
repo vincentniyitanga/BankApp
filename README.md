@@ -35,7 +35,9 @@ In this project, you You need to implement the following items based on the give
 * Finish implementing the method `addAccountOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to add a bank account to the customer. Students may use the method `addCustomerOKButtonActionPerformed(java.awt.event.ActionEvent evt)` defined in the `AddCustomerDialog` class as an example on how to implement this method.  
 
 ### Finish implementing WithdrawDialog Class
-* Finish implementing the method `withdrawOKButtonActionPerformed` to withdraw a certain amount of money from a selected bank account.
+* Finish implementing the method `withdrawOKButtonActionPerformed` to withdraw a certain amount of money from a selected bank account. It checks if the withdrawal amount is empty. If it is, a warning message is appended to the warnings StringBuilder indicating that the withdrawal amount is empty. If the withdrawal amount is not empty, it's converted to a BigDecimal object for further processing. It checks if the withdrawal amount is greater than zero. If it is, it attempts to withdraw the specified amount from the account. If the withdrawal operation fails due to insufficient funds, the error message from the InsufficientFundException is appended to the warnings StringBuilder.
+* After verifying the withdrawal amount and processing it, if there are any warnings (i.e., if the warnings StringBuilder is not empty), a message dialog is displayed to alert the user about any issues encountered during the withdrawal process.
+* Finally, regardless of whether there are warnings or not, the current dialog (this) is disposed, indicating the completion of the withdrawal operation.
 
 ### Finish implementing TransferDialog Class
 * Finish implementing the method `transferOKButtonActionPerformed(java.awt.event.ActionEvent evt)` to transfer a certain amount from one bank account to another. 

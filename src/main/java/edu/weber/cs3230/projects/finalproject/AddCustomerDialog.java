@@ -107,7 +107,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextFieldActionPerformed
-        // TODO add your handling code here:
+        // In case you need to manage user input for the first name, insert your code for handling it in this section:
     }//GEN-LAST:event_firstNameTextFieldActionPerformed
 
     private void addCustomerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerCancelButtonActionPerformed

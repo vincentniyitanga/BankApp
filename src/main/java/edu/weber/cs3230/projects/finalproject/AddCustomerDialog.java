@@ -115,9 +115,10 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_addCustomerCancelButtonActionPerformed
 
     private void addCustomerOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomerOKButtonActionPerformed
-        String firstName = "";
-        String lastName = "";
-        String phoneNumber = "";
+        String firstName = firstNameTextField.getText().trim();
+        String lastName = lastNameTextField.getText().trim();
+        String phoneNumber = phoneNumberTextField.getText().trim();
+        String initBalance = initBalanceTextField.getText().trim();
         BigDecimal balance = BigDecimal.ZERO;
         StringBuilder warnings = new StringBuilder();
 
@@ -133,9 +134,73 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         //  is added to the customers list. After adding the customer, the TransferDialog is disposed,
         //  indicating the completion of the operation.
 
+        // Validate required fields
+        if (firstName.isEmpty()) {
+            warnings.append("First name is required\n");
+        }
+        if (lastName.isEmpty()) {
+            warnings.append("Last name is required\n");
+        }
+        if (phoneNumber.isEmpty()) {
+            warnings.append("Phone number is required\n");
+        }
 
+        // Check for duplicate phone number
+        for (Customer existingCustomer : customers) {
+            if (existingCustomer.getPhoneNumber().equals(phoneNumber)) {
+                warnings.append("A customer with this phone number already exists\n");
+                break;
+            }
+        }
 
+        // Validate initial balance
+        try {
+            if (!initBalance.isEmpty()) {
+                balance = new BigDecimal(initBalance.trim());
+                if (balance.compareTo(BigDecimal.ZERO) < 0) {
+                    warnings.append("Initial balance cannot be negative\n");
+                }
+            }
+        } catch (NumberFormatException e) {
+            warnings.append("Invalid Initial balance format\n");
+        }
 
+        // If there are any warnings, show them and return
+        if (warnings.length() > 0) {
+            JOptionPane.showMessageDialog(this,
+                    warnings.toString(),
+                    "Input Warnings",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+       // Create new customer
+       newlyAddedCustomer = new Customer(firstName, lastName, "", phoneNumber);
+
+      // Create appropriate account type based on selection
+      BankAccount account;
+      String selectedAccountType = (String) accountTypeComboBox.getSelectedItem();
+
+      switch (selectedAccountType) {
+          case "Checking":
+              account = new CheckingAccount(balance);
+              break;
+          case "Savings":
+              account = new SavingsAccount(balance);
+              break;
+          case "Investment":
+              account = new InvestmentAccount(balance);
+              break;
+          default:
+              account = new CheckingAccount(balance);
+      }
+
+      // Add count to customer and customer to list
+        newlyAddedCustomer.addBankAccount(account);
+        customers.add(newlyAddedCustomer);
+
+        // Close dialog
+        this.dispose();
         
     }//GEN-LAST:event_addCustomerOKButtonActionPerformed
 

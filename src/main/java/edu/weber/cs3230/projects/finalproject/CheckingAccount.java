@@ -4,50 +4,54 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class CheckingAccount extends BankAccount {
-
     private ArrayList deposits;
     private ArrayList withdraws;
     private BigDecimal withdrawLimit;
 
-    public CheckingAccount()
-    {
-        super();
+    public CheckingAccount() {
+        super();  // This sets balance to ZERO
         deposits = new ArrayList();
         withdraws = new ArrayList();
         this.withdrawLimit = BigDecimal.valueOf(Integer.MAX_VALUE);
     }
 
-    public CheckingAccount(BigDecimal withdrawLimit)
-    {
-        this();
-        this.withdrawLimit = withdrawLimit;
-
+    // Fixed this constructor to properly set both balance and withdraw limit
+    public CheckingAccount(BigDecimal initBalance) {
+        super(initBalance);  // This properly sets the initial balance
+        deposits = new ArrayList();
+        withdraws = new ArrayList();
+        this.withdrawLimit = BigDecimal.valueOf(Integer.MAX_VALUE);
     }
 
-    //  set a limit for this account,
-    //  if you try to set a negative limit, it will throw an exception.
-    //  message should be "Limit is less than zero!"
+    // Constructor with both balance and limit
+    public CheckingAccount(BigDecimal initBalance, BigDecimal withdrawLimit) {
+        super(initBalance);
+        deposits = new ArrayList();
+        withdraws = new ArrayList();
+        this.withdrawLimit = withdrawLimit;
+    }
+
+    // Rest of the class remains the same
     public void setLimit(BigDecimal withdrawLimit) throws InvalidLimitException {
-        if(withdrawLimit.compareTo(BigDecimal.ZERO) < 0)
-        {
+        if(withdrawLimit.compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidLimitException("Invalid limit!");
         }
-
         this.withdrawLimit = withdrawLimit;
     }
 
     @Override
-    public boolean withdraw(BigDecimal amount) {
-        if(balance.compareTo(amount) >= 0 && amount.compareTo(withdrawLimit) <= 0)
-        {
+    public boolean withdraw(BigDecimal amount) throws InsufficientFundException {
+        if(amount.compareTo(withdrawLimit) > 0) {
+            return false;  // Just return false if amount exceeds limit
+        }
+        if(balance.compareTo(amount) >= 0) {
             balance = balance.subtract(amount);
             return true;
-        }
-        else {
-            System.out.println("Warning: no enough balance or amount over the limit, withdraw failed!");
-            return false;
+        } else {
+            throw new InsufficientFundException();  // Throw without string parameter
         }
     }
+
 
     @Override
     public String getStatement() {

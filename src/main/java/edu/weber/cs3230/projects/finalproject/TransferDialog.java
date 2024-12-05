@@ -7,8 +7,8 @@ package edu.weber.cs3230.projects.finalproject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -60,6 +60,7 @@ public class TransferDialog extends javax.swing.JDialog {
         transferAmountTextField = new javax.swing.JTextField();
         transferOKButton = new javax.swing.JButton();
         transferCancelButton = new javax.swing.JButton();
+        transferService = new TransferService((IBankAccountRepository) bankAccountRepository);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(4, 2, 5, 5));
@@ -99,12 +100,68 @@ public class TransferDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_transferCancelButtonActionPerformed
 
-    private void transferOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferOKButtonActionPerformed
-        // TODO: transfer a certain amount from one bank account to another
+    // TODO: transfer a certain amount from one bank account to another
 
+    private void transferOKButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        StringBuilder warnings = new StringBuilder();
+        String toAccountStr = toAccountTextField.getText().trim();
+        String transferAmountStr = transferAmountTextField.getText().trim();
 
+        // Validate transfer amount
+        if (transferAmountStr.isEmpty()) {
+            warnings.append("Transfer amount is required");
+            JOptionPane.showMessageDialog(this,
+                    warnings.toString(),
+                    "Transfer Warnings",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    }//GEN-LAST:event_transferOKButtonActionPerformed
+        try {
+            BigDecimal amount = new BigDecimal(transferAmountStr);
+
+            if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+                warnings.append("Transfer amount must be greater than zero");
+                JOptionPane.showMessageDialog(this,
+                        warnings.toString(),
+                        "Transfer Warnings",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int toAccountNumber = Integer.parseInt(toAccountStr);
+            BankAccount toAccount = bankAccountRepository.findByAccountNumber(toAccountNumber);
+
+            if (toAccount.getAccountNumber() == account.getAccountNumber()) {
+                warnings.append("Cannot transfer to the same account");
+            } else {
+                transferService = new TransferService((IBankAccountRepository)bankAccountRepository);
+                try {
+                    transferService.transfer(account.getAccountNumber(),
+                            toAccount.getAccountNumber(),
+                            amount);
+                } catch (InsufficientFundException e) {
+                    warnings.append("Insufficient funds: ").append(e.getMessage());
+                } catch (NoSuchBankAccountException e) {
+                    warnings.append("Account error: ").append(e.getMessage());
+                }
+            }
+        } catch (NumberFormatException e) {
+            warnings.append("Invalid number format");
+        } catch (NoSuchBankAccountException e) {
+            warnings.append("Account not found: ").append(e.getMessage());
+        }
+
+        if (warnings.length() > 0) {
+            JOptionPane.showMessageDialog(this,
+                    warnings.toString(),
+                    "Transfer Warnings",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+
+        this.dispose();
+    }
+
 
     public JTextField getToAccountTextField() {
         return toAccountTextField;

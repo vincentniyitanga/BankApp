@@ -32,27 +32,31 @@ public class AddAccountDialogTest {
 
     @Test
     public void testOKButtonActionPerformed() {
-        // Prepare test data
-        String balanceStr = "100";
-        String accountType = "Checking";
-        BigDecimal balance = new BigDecimal(balanceStr);
+        // Create a list to store accounts
+        ArrayList<BankAccount> accounts = new ArrayList<>();
 
         // Set up mock behavior
-        when(mockCustomer.getBankAccounts()).thenReturn(new ArrayList<>());
+        doAnswer(invocation -> {
+            BankAccount account = invocation.getArgument(0);
+            accounts.add(account);
+            return null;
+        }).when(mockCustomer).addBankAccount(any(BankAccount.class));
+
+        when(mockCustomer.getBankAccounts()).thenReturn(accounts);
 
         // Set input values
-        dialog.getInitBalanceTextField().setText(balanceStr);
-        dialog.getAccountTypeComboBox().setSelectedItem(accountType);
+        dialog.getInitBalanceTextField().setText("100");
+        dialog.getAccountTypeComboBox().setSelectedItem("Checking");
 
         // Trigger action
         dialog.getAddAccountOKButton().doClick();
 
-        // Verify customer's bank accounts have been updated
-        List<BankAccount> updatedAccounts = mockCustomer.getBankAccounts();
-        assertEquals(1, updatedAccounts.size()); // One account should be added
-        BankAccount addedAccount = updatedAccounts.get(0);
-        assertEquals(balance, addedAccount.getBalance()); // Check balance
-        assertTrue(addedAccount instanceof CheckingAccount); // Check account type
+        // Verify account was added correctly
+        assertEquals(1, accounts.size());
+        BankAccount addedAccount = accounts.get(0);
+        assertEquals(new BigDecimal("100"), addedAccount.getBalance());
+        assertTrue(addedAccount instanceof CheckingAccount);
     }
+
 
 }

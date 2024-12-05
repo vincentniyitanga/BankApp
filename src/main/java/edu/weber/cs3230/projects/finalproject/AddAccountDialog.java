@@ -75,18 +75,42 @@ public class AddAccountDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_addAccountCancelButtonActionPerformed
 
-    private void addAccountOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAccountOKButtonActionPerformed
-        String lastName = "";
-        String phoneNumber = "";
-        BigDecimal balance = BigDecimal.ZERO;
+    private void addAccountOKButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        String initBalance = initBalanceTextField.getText().trim();
         StringBuilder warnings = new StringBuilder();
 
-        // TODO: add a bank account to the customer
+        try {
+            BigDecimal balance = new BigDecimal(initBalance);
+            BankAccount account;
 
+            String selectedType = (String) accountTypeComboBox.getSelectedItem();
+            switch (selectedType) {
+                case "Checking":
+                    account = new CheckingAccount(balance);
+                    break;
+                case "Savings":
+                    account = new SavingsAccount(balance);
+                    break;
+                case "Investment":
+                    account = new InvestmentAccount(balance);
+                    break;
+                default:
+                    account = new CheckingAccount(balance);
+            }
 
+            // Simply add the account to the customer
+            customer.addBankAccount(account);
 
+            this.dispose();
 
-    }//GEN-LAST:event_addAccountOKButtonActionPerformed
+        } catch (NumberFormatException ex) {
+            warnings.append("Invalid balance format");
+            JOptionPane.showMessageDialog(this,
+                    warnings.toString(),
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     public JButton getAddAccountCancelButton() {
         return addAccountCancelButton;

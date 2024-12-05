@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TransferService implements ITransfer {
-
     private IBankAccountRepository bankAccountRepository;
 
     public TransferService(IBankAccountRepository bankAccountRepository) {
@@ -13,16 +12,14 @@ public class TransferService implements ITransfer {
     }
 
     @Override
-    public void transfer(int from, int to, BigDecimal amount) throws NoSuchBankAccountException {
+    public void transfer(int from, int to, BigDecimal amount)
+            throws NoSuchBankAccountException, InsufficientFundException {
+        BankAccount fromBankAccount = bankAccountRepository.findByAccountNumber(from);
+        BankAccount toBankAccount = bankAccountRepository.findByAccountNumber(to);
 
-        BankAccount fromBankAccount, toBankAccount;
-        fromBankAccount = bankAccountRepository.findByAccountNumber(from);
-        toBankAccount = bankAccountRepository.findByAccountNumber(to);
-        try {
-            fromBankAccount.withdraw(amount);
-        } catch (InsufficientFundException ex) {
-            Logger.getLogger(TransferService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // Remove try-catch and let the exception propagate
+        fromBankAccount.withdraw(amount);
         toBankAccount.deposit(amount);
     }
 }
+

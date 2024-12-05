@@ -69,6 +69,7 @@ public class WithdrawDialog extends JDialog {
 
     private void withdrawOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawOKButtonActionPerformed
         StringBuilder warnings = new StringBuilder();
+        String withdrawAmount = withdrawAmountTextField.getText().trim();
 
         // TODO: Finish implementing this method to withdraw a certain amount of money from a selected bank account.
         //  It checks if the withdrawal amount is empty. If it is, a warning message is appended to the warnings
@@ -82,9 +83,39 @@ public class WithdrawDialog extends JDialog {
         //  Finally, regardless of whether there are warnings or not, the current dialog (this) is disposed,
         //  indicating the completion of the withdrawal operation.
 
+        // Check if amount is empty
+        if (withdrawAmount.isEmpty()) {
+            warnings.append("Withdrawal amount is required\n");
+        } else {
+            try {
+                BigDecimal amount = new BigDecimal(withdrawAmount);
 
+                // Check if amount is greater than zero
+                if (amount.compareTo(BigDecimal.ZERO) < 0) {
+                    warnings.append("Withdrawal amount must be greater than zero\n");
+                } else {
+                    // Attempt to withdraw
+                    try {
+                        account.withdraw(amount);
+                    } catch (InsufficientFundException e) {
+                        warnings.append("Insufficient funds\n").append(e.getMessage()).append("\n");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                warnings.append("Invalid withdrawal amount\n");
+            }
+        }
 
+        // Show warnings if any
+        if (warnings.length() > 0) {
+            JOptionPane.showMessageDialog(this,
+                    warnings.toString(),
+                    "Withdrawal Warnings",
+                    JOptionPane.WARNING_MESSAGE);
+        }
 
+        // Close dialog
+        this.dispose();
 
     }//GEN-LAST:event_withdrawOKButtonActionPerformed
 

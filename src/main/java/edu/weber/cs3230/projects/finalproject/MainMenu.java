@@ -231,9 +231,24 @@ public class MainMenu extends javax.swing.JFrame {
     private void showAccountsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsButtonActionPerformed
         // TODO: display all bank accounts for a selected customer using ShowAccountsFrame, if a customer is not selected,
         //  or there is no customer in the application, display error message: "Select a customer or add a new customer to show accounts!"
+        int selectedRow = customerTable.getSelectedRow();
+        if(selectedRow < 0 || customers.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Select a customer or add a new customer to show contacts!",
+                    "Input Warnings", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-
-
+        try {
+            Customer customer = getSelectedCustomer(selectedRow);
+            ShowAccountsFrame frame = new ShowAccountsFrame(customer, customers);
+            frame.setVisible(true);
+        } catch (NoSuchCustomerException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Error finding customer: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_showAccountsButtonActionPerformed
 
@@ -262,8 +277,15 @@ public class MainMenu extends javax.swing.JFrame {
     public void addCustomerToTable(Customer customer)
     {
         // TODO: show the customer details to the table "customerTable"
-
-
+        DefaultTableModel tableModel = (DefaultTableModel)customerTable.getModel();
+        Object[] rowData = {
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getPhoneNumber(),
+                customer.getAddress(),
+                customer.getBankAccounts().size()
+        };
+        tableModel.addRow(rowData);
     }
     
     public void removeCustomerFromTable(int selectedRow)
